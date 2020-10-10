@@ -2,17 +2,19 @@
 yum -y groupinstall "Development Tools"
 MYIP=$(wget -qO- ifconfig.me);
 ifaceName=$(ip addr show | awk '/inet.*brd/{print $NF}')
+MYIP2="s/xxxxxxxxx/$MYIP/g";
 wget http://www.inet.no/dante/files/dante-1.4.2.tar.gz
 tar -xvf dante-1.4.2.tar.gz
 cd dante-1.4.2
 ./configure
 make && make install
 
-echo 'user.privileged: root
+cat > /etc/sockd.conf <<END
+user.privileged: root
 user.notprivileged: nobody
 
 internal: $ifaceName port = 1080
-external: $MYIP
+external: xxxxxxxxx
 socksmethod: username
 logoutput: syslog stdout /var/log/sockd.log
 client pass {
@@ -26,16 +28,18 @@ socks pass {
   log: connect error
   command: bind connect udpassociate
 }
-' > /etc/sockd.conf
+END
+sed -i $MYIP2 /etc/sockd.conf;
 
-echo '[Unit]
+cat > /usr/lib/systemd/system/sockd.service <<END
+[Unit]
 Description=Sockd Service
 [Service]
 Type=normal
 ExecStart=/usr/local/sbin/sockd
 [Install]
 WantedBy=multi-user.target
-' > /usr/lib/systemd/system/sockd.service
+END
 
 systemctl start sockd
 
