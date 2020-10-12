@@ -30,6 +30,7 @@ socks pass {
 }
 END
 sed -i $MYIP2 /etc/sockd.conf;
+cat /etc/sockd.conf
 
 cat > /usr/lib/systemd/system/sockd.service <<END
 [Unit]
