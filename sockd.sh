@@ -1,5 +1,4 @@
 #!/bin/sh
-yum -y groupinstall "Development Tools"
 MYIP=$(wget -qO- ifconfig.me);
 ifaceName=$(ip addr show | awk '/inet.*brd/{print $NF}')
 MYIP2="s/xxxxxxxxx/$MYIP/g";
