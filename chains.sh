@@ -1,6 +1,6 @@
 #!/bin/sh
 apt update;apt -y install proxychains;
-sed -i 's/DNS_SERVER=${PROXYRESOLV_DNS:-4.2.2.2}/DNS_SERVER=${PROXYRESOLV_DNS:-208.67.222.222}/' /usr/lib/proxychains3/proxyresolv
+sed -i 's/DNS_SERVER=${PROXYRESOLV_DNS:-4.2.2.2}/DNS_SERVER=${PROXYRESOLV_DNS:-9.9.9.9}/' /usr/lib/proxychains3/proxyresolv
 rm /etc/proxychains.conf
 echo 'strict_chain
 proxy_dns
