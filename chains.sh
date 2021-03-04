@@ -7,6 +7,6 @@ proxy_dns
 tcp_read_time_out 15000
 tcp_connect_time_out 8000
 [ProxyList]
-socks5 148.100.79.12 1080 mikrotik999 Elibawnos
+socks5 127.0.0.1 9999
 ' > /etc/proxychains.conf
 exit 0
